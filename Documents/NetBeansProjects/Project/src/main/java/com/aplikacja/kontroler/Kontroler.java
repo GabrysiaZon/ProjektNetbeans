@@ -4,10 +4,14 @@ import com.aplikacja.model.projektanci;
 import com.aplikacja.model.szczegolyZamowienia;
 import com.aplikacja.model.zamowieniaGotowe;
 import com.aplikacja.model.zamowieniaWymiar;
+import com.aplikacja.model.produkty;
+import com.aplikacja.model.klienci;
 import com.aplikacja.repozytorium.projektanciRepozytorium;
 import com.aplikacja.repozytorium.szczegolyZamowieniaRepozytorium;
 import com.aplikacja.repozytorium.zamowieniaGotoweRepozytorium;
 import com.aplikacja.repozytorium.zamowieniaWymiarRepozytorium;
+import com.aplikacja.repozytorium.klienciRepozytorium;
+import com.aplikacja.repozytorium.produktyRepozytorium;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +20,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org. springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +29,140 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Kontroler {
+    
+    @Autowired
+    klienciRepozytorium klienciRepo;
+    @GetMapping("/klienci/dodajTestowe")
+    public String dodajDaneTestoweKlienci(){
+
+        klienciRepo.saveAll(Arrays.asList(
+                new klienci("Jan", "Kowalski", "M", LocalDate.of(1990, 5,15), "jan.kowalski@example.com", "Warszawa", "Aleje Jerozolimskie", "10", "5A"),
+                new klienci("Anna", "Nowak", "F", LocalDate.of(1985, 12, 10), "anna.nowak@example.com", "Kraków", "ul. Florianska", "20", null),
+                new klienci("Patryk", "Wisniewski", "M", LocalDate.of(1988, 8, 25), "patryk.wisniewski@example.com", "Gdansk", "ul. Dluga", "15", "3")));
+
+        return "Testowe rekordy dodane!";
+    }
+    
+    @GetMapping("/klienci/pokazWszystkie")
+    public List<klienci> pokarzWszystkieKlienci(){
+        List<klienci> listaKlienci = new ArrayList<klienci>();
+        for(klienci projekt : klienciRepo.findAll()){
+        listaKlienci.add(projekt) ;
+        }
+        return listaKlienci;
+    }
+    
+    @GetMapping("/klienci/wyszukajPoId/(id)")
+    public String szukajPoIdKlienci(@PathVariable("id") Integer id) {
+        String result = klienciRepo.findById (id) .toString();
+        return result;
+    } 
+    
+    @GetMapping("/klienci/szukajPoNazwie/(nazwa)")
+    public String fetchDataByNazwaKlienci(@PathVariable("nazwa") String nazwa) {
+        for (klienci projekt: klienciRepo.findByNazwa (nazwa) ) {
+            return projekt.toString ();
+        }
+        return null;
+    } 
+    
+    @DeleteMapping("/klienci/{id}")
+    public String usunPoIdKlienci(@PathVariable("id") Integer id) {
+        klienciRepo.deleteById (id);
+        return "Rekord usunięty";
+    }
+    
+    @PostMapping("/klienci/utworz")
+    public klienci utworzKlienci(@RequestBody Map<String, String> body) {
+        String imie = body.get("imie");
+        String nazwisko = body.get("nazwisko");
+        String plec = body.get("plec");
+        LocalDate dataUrodzenia = LocalDate.parse(body.get("dataUrodzenia"));
+        String email = body.get("email");
+        String miasto = body.get("miasto");
+        String ulica = body.get("ulica");
+        String numerDomu = body.get("numerDomu");
+        String numerMieszkania = body.get("numerMieszkania");
+        return klienciRepo.save(new klienci(imie, nazwisko, plec, dataUrodzenia, email, miasto, ulica, numerDomu, numerMieszkania) ) ;
+    }  
+    
+    @PutMapping ("/klienci/zmien")
+    public klienci zmienKlienci(@RequestBody Map<String, String> body) {
+        int klientId = Integer.parseInt(body.get("id"));
+        String imie = body.get("imie");
+        String nazwisko = body.get("nazwisko");
+        String plec = body.get("plec");
+        LocalDate dataUrodzenia = LocalDate.parse(body.get("dataUrodzenia"));
+        String email = body.get("email");
+        String miasto = body.get("miasto");
+        String ulica = body.get("ulica");
+        String numerDomu = body.get("numerDomu");
+        String numerMieszkania = body.get("numerMieszkania");
+        return klienciRepo.save(new klienci(imie, nazwisko, plec, dataUrodzenia, email, miasto, ulica, numerDomu, numerMieszkania) ) ;
+    }  
+    
+    
+    @Autowired
+    produktyRepozytorium produktyRepo;
+    @GetMapping("/produkty/dodajTestowe")
+    public String dodajDaneTestoweProdukty (){
+
+        produktyRepo.saveAll (Arrays.asList(
+                new produkty("Odziez", "Koszula", "Bialy", 59.99),
+                new produkty("Elektronika", "Smartfon", "Czarny", 999.99),
+                new produkty ("Dom i ogrod", "Stol ogrodowy", "Brazowy", 299.99)));
+
+        return "Testowe rekordy dodane!";
+    }
+    
+    @GetMapping("/produkty/pokazWszystkie")
+    public List<produkty> pokarzWszystkieProdukty(){
+        List<produkty> listaProdukty = new ArrayList<produkty>();
+        for(produkty projekt : produktyRepo.findAll()){
+        listaProdukty.add(projekt) ;
+        }
+        return listaProdukty;
+    }
+    
+    @GetMapping("/produkty/wyszukajPoId/(id)")
+    public String szukajPoIdProdukty(@PathVariable("id") Integer id) {
+        String result = produktyRepo.findById (id) .toString();
+        return result;
+    } 
+    
+    @GetMapping("/produkty/szukajPoNazwie/(nazwa)")
+    public String fetchDataByNazwaProdukty (@PathVariable("nazwa") String nazwa) {
+        for (produkty projekt: produktyRepo.findByNazwa (nazwa) ) {
+            return projekt.toString ();
+        }
+        return null;
+    } 
+    
+    @DeleteMapping("/produkty/{id}")
+    public String usunPoIdProdukty(@PathVariable("id") Integer id) {
+        produktyRepo.deleteById (id);
+        return "Rekord usunięty";
+    }
+    
+    @PostMapping("/produkty/utworz")
+    public produkty utworzProdukty (@RequestBody Map<String, String> body) {
+        String kategoria = body.get("kategoria");
+        String nazwa = body.get("nazwisko");
+        String kolor = body.get("email");
+        Double cena = Double.parseDouble(body.get("cena"));
+        return produktyRepo.save(new produkty (kategoria, nazwa, kolor, cena) ) ;
+    }  
+    
+    @PutMapping ("/produkty/zmien")
+    public produkty zmienProdukty (@RequestBody Map<String, String> body) {
+        int produktId = Integer.parseInt(body.get("id"));
+        String kategoria = body.get("kategoria");
+        String nazwa = body.get("nazwisko");
+        String kolor = body.get("email");
+        Double cena = Double.parseDouble(body.get("cena"));
+        return produktyRepo.save(new produkty(produktId, kategoria, nazwa, kolor, cena) ) ;
+    }
+    
     
     @Autowired
     projektanciRepozytorium projektanciRepo;
