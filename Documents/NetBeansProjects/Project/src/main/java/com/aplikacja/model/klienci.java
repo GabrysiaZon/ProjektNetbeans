@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+import java.time.LocalDate;
 
 @Entity
 @Table (name = "klienci")
@@ -32,7 +32,7 @@ private String nazwisko;
 private String plec;
 
 @Column(name = "dataUrodzenia")
-private String dataUrodzenia;
+private LocalDate dataUrodzenia;
 
 @Column(name = "email")
 private String email;
@@ -53,7 +53,7 @@ public klienci() {};
 
 
 //Konstruktor stosowany do tworzenia nowych produktów w bazie
-public klienci(String imie, String nazwisko, String plec, String dataUrodzenia, String email, String miasto, String ulica, String numerDomu, String numerMieszkania) {
+public klienci(String imie, String nazwisko, String plec, LocalDate dataUrodzenia, String email, String miasto, String ulica, String numerDomu, String numerMieszkania) {
     this.setImie(imie);
     this.setNazwisko(nazwisko);
     this.setPlec(plec);
@@ -67,7 +67,7 @@ public klienci(String imie, String nazwisko, String plec, String dataUrodzenia, 
 
 
 //Konstruktor stosowany do edytowania istniejących produktów w bazie
-public klienci(int it, String imie, String nazwisko, String plec, String dataUrodzenia, String email, String miasto, String ulica, String numerDomu, String numerMieszkania) {
+public klienci(int it, String imie, String nazwisko, String plec, LocalDate dataUrodzenia, String email, String miasto, String ulica, String numerDomu, String numerMieszkania) {
     this.setId(id);
     this.setImie(imie);
     this.setNazwisko(nazwisko);
@@ -112,11 +112,11 @@ public void setPlec(String plec) {
     this.plec = plec;
 }
 
-public String getDataUrodzenia() {
+public LocalDate getDataUrodzenia() {
     return dataUrodzenia;
 }
 
-public void setDataUrodzenia(String dataUrodzenia) {
+public void setDataUrodzenia(LocalDate dataUrodzenia) {
     this.dataUrodzenia = dataUrodzenia;
 }
 
