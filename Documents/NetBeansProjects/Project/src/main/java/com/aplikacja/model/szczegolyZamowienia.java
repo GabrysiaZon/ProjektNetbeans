@@ -1,12 +1,12 @@
 package com.aplikacja.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "szczegolyZamowienia")
@@ -26,25 +26,21 @@ public class szczegolyZamowienia implements Serializable {
     
     @Column (name = "ilosc")
     private int ilosc;
-    
-    @Column (name = "cena")
-    private Double cena;
+
 
     public szczegolyZamowienia    () {};
     //Konstruktor stosowany do tworzenia nowych produktow w bazie
-    public szczegolyZamowienia    (int idZamowienie, int idProdukt, int ilosc, Double cena) {
+    public szczegolyZamowienia    (int idZamowienie, int idProdukt, int ilosc) {
         this.setIdZamowienie (idZamowienie);
         this.setIdProdukt (idProdukt);
         this.setIlosc (ilosc);
-        this.setCena (cena);
     }
     //Konstruktor stosowany do edytowania istniejących produktow w bazie
-    public szczegolyZamowienia    (int id, int idZamowienie, int idProdukt, int ilosc, Double cena) {
+    public szczegolyZamowienia    (int id, int idZamowienie, int idProdukt, int ilosc) {
         this.setId(id);
         this.setIdZamowienie (idZamowienie);
         this.setIdProdukt (idProdukt);
         this.setIlosc (ilosc);
-        this.setCena (cena);
     }
     public int getId() {
         return id;
@@ -70,12 +66,6 @@ public class szczegolyZamowienia implements Serializable {
     public void setIlosc (int ilosc) {
         this.ilosc = ilosc;
     }
-    public Double getCena() {
-        return cena;
-    }
-    public void setCena (Double cena) {
-        this.cena = cena;
-    }
     
     @Override
     public String toString () {
@@ -84,7 +74,6 @@ public class szczegolyZamowienia implements Serializable {
             ", idZamowienie ='" + idZamowienie + '\"' +
             ", idProdukt ='" + idProdukt  + '\"' +
             ", ilosc='" + ilosc + '\"' +
-            ", cena='" + cena + '\"' +
             ')';
     }
 }

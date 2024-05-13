@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface projektanciRepozytorium extends CrudRepository<projektanci, Integer>{
   
-    List<projektanci> findByNazwa(String name);
+    List<projektanci> findByEmail(String email);
 }

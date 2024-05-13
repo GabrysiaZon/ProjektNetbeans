@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface klienciRepozytorium extends CrudRepository<klienci, Integer>{
     
-    List<klienci> findByNazwa(String name);
+    List<klienci> findByEmail(String email);
+
 }
