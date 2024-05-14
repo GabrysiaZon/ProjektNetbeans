@@ -18,7 +18,7 @@ public class ZamowieniaGotoweKontroler {
     @Autowired
     zamowieniaGotoweRepozytorium zamowieniaGotoweRepo;
 
-    @PostMapping("/dodajTestowe")
+    @GetMapping("/dodajTestowe")
     public String dodajDaneTestoweZamowieniaGotowe (){
 
         zamowieniaGotoweRepo.saveAll (Arrays. asList(

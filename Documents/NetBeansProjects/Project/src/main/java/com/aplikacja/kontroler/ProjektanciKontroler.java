@@ -22,7 +22,7 @@ public class ProjektanciKontroler {
     projektanciRepozytorium projektanciRepo;
     
 
-    @PostMapping("/dodajTestowe")
+    @GetMapping("/dodajTestowe")
     public String dodajDaneTestoweProjektanci (){
 
         projektanciRepo.saveAll (Arrays. asList(

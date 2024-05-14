@@ -19,7 +19,7 @@ public class ZamowieniaWymiarKontroler {
     zamowieniaWymiarRepozytorium zamowieniaWymiarRepo;
 
 
-    @PostMapping("/dodajTestowe")
+    @GetMapping("/dodajTestowe")
     public String dodajDaneTestoweZamowieniaWymiar(){
 
         zamowieniaWymiarRepo.saveAll (Arrays. asList(

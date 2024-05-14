@@ -16,7 +16,7 @@ public class SzczegolyZamowieniaKontroler {
     @Autowired
     szczegolyZamowieniaRepozytorium szczegolyZamowieniaRepo;
 
-    @PostMapping("/dodajTestowe")
+    @GetMapping("/dodajTestowe")
     public String dodajDaneTestoweSzczegolyZamowienia (){
 
         szczegolyZamowieniaRepo.saveAll (Arrays. asList(

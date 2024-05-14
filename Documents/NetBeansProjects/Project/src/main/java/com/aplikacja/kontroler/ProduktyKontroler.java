@@ -21,7 +21,7 @@ public class ProduktyKontroler {
     @Autowired
     produktyRepozytorium produktyRepo;
 
-    @PostMapping("/dodajTestowe")
+    @GetMapping("/dodajTestowe")
     public String dodajDaneTestoweProdukty (){
 
         produktyRepo.saveAll (Arrays.asList(

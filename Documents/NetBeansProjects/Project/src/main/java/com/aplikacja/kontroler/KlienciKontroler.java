@@ -16,11 +16,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@RestController
+@RequestMapping("klienci")
 public class KlienciKontroler {
     @Autowired
     klienciRepozytorium klienciRepo;
 
-    @PostMapping("/dodajTestowe")
+    @GetMapping("/dodajTestowe")
     public String dodajDaneTestoweKlienci(){
 
         klienciRepo.saveAll(Arrays.asList(
