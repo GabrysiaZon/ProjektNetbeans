@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface zamowieniaGotoweRepozytorium extends CrudRepository<zamowieniaGotowe, Integer>{
     
-    List<zamowieniaGotowe> findByNazwa(String name);
+    List<zamowieniaGotowe> findByIdKlient(int idKlienta);
 }
