@@ -18,8 +18,8 @@ public class ZamowieniaWymiarKontroler {
     @Autowired
     zamowieniaWymiarRepozytorium zamowieniaWymiarRepo;
 
-    @GetMapping("/dodajDaneTestowe")
-    public String dodajDaneTestowe(){
+    @GetMapping("/dodajTestowe")
+    public String dodajTestowe(){
         zamowieniaWymiarRepo.saveAll (Arrays. asList(
                 new zamowieniaWymiar(1, 1, LocalDate.of(2023, 4, 15), LocalDate.of(2023, 5, 12), 1000.0),
                 new zamowieniaWymiar (2, 2, LocalDate.of(2023, 4, 29), LocalDate.of(2023, 5, 30), 1600.0),
@@ -28,7 +28,7 @@ public class ZamowieniaWymiarKontroler {
         return "Testowe rekordy dodane!";
     }
     
-    @GetMapping("/pokazWszystkie")
+    @GetMapping()
     public List<zamowieniaWymiar> pokarzWszystkie(){
         List<zamowieniaWymiar> listazamowieniaWymiar = new ArrayList<zamowieniaWymiar>();
         for(zamowieniaWymiar projekt : zamowieniaWymiarRepo.findAll()){

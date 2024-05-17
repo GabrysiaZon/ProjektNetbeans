@@ -22,8 +22,8 @@ public class ProduktyKontroler {
     @Autowired
     produktyRepozytorium produktyRepo;
 
-    @GetMapping("/dodajDaneTestowe")
-    public String dodajDaneTestowe(){
+    @GetMapping("/dodajTestowe")
+    public String dodajTestowe(){
 
         produktyRepo.saveAll (Arrays.asList(
                 new produkty("Stoly", "Stol jadalniany", "Bialy", 399.99),
@@ -33,7 +33,7 @@ public class ProduktyKontroler {
         return "Testowe rekordy dodane!";
     }
 
-    @GetMapping("/pokazWszystkie")
+    @GetMapping()
     public List<produkty> pokarzWszystkie(){
         List<produkty> listaProdukty = new ArrayList<produkty>();
         for(produkty projekt : produktyRepo.findAll()){

@@ -18,8 +18,8 @@ public class ZamowieniaGotoweKontroler {
     @Autowired
     zamowieniaGotoweRepozytorium zamowieniaGotoweRepo;
 
-    @GetMapping("/dodajDaneTestowe")
-    public String dodajDaneTestowe(){
+    @GetMapping("/dodajTestowe")
+    public String dodajTestowe(){
 
         zamowieniaGotoweRepo.saveAll (Arrays. asList(
                 new zamowieniaGotowe(1, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 20), 600.0),
@@ -29,7 +29,7 @@ public class ZamowieniaGotoweKontroler {
         return "Testowe rekordy dodane!";
     }
     
-    @GetMapping("/pokazWszystkie")
+    @GetMapping()
     public List<zamowieniaGotowe> pokarzWszystkie(){
         List<zamowieniaGotowe> listaZamowieniaGotowe = new ArrayList<zamowieniaGotowe>();
         for(zamowieniaGotowe projekt : zamowieniaGotoweRepo.findAll()){

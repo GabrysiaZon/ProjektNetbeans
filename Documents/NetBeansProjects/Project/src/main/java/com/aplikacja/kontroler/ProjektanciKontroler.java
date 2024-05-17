@@ -22,8 +22,8 @@ public class ProjektanciKontroler {
     @Autowired
     projektanciRepozytorium projektanciRepo;
 
-    @GetMapping("/dodajDaneTestowe")
-    public String dodajDaneTestowe (){
+    @GetMapping("/dodajTestowe")
+    public String dodajTestowe (){
         projektanciRepo.saveAll (Arrays. asList(
                 new projektanci("Anna", "Kowalska", "anna.kowalska@example.com"),
                 new projektanci ("Jan", "Nowak", "jan.nowak@example.com"),
@@ -32,7 +32,7 @@ public class ProjektanciKontroler {
         return "Testowe rekordy dodane!";
     }
     
-    @GetMapping("/pokazWszystkie")
+    @GetMapping()
     public List<projektanci> pokarzWszystkie(){
         List<projektanci> listaprojektanci = new ArrayList<projektanci>();
         for(projektanci projekt : projektanciRepo.findAll()){

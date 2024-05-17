@@ -23,8 +23,8 @@ public class KlienciKontroler {
     @Autowired
     klienciRepozytorium klienciRepo;
 
-    @GetMapping("/dodajDaneTestowe")
-    public String dodajDaneTestowe(){
+    @GetMapping("/dodajTestowe")
+    public String dodajTestowe(){
 
         klienciRepo.saveAll(Arrays.asList(
                 new klienci("Jan", "Kowalski", "M", LocalDate.of(1990, 5,15), "jan.kowalski@example.com", "Warszawa", "Aleje Jerozolimskie", "10", "5A"),
@@ -34,7 +34,7 @@ public class KlienciKontroler {
         return "Testowe rekordy dodane!";
     }
 
-    @GetMapping("/pokazWszystkie")
+    @GetMapping()
     public List<klienci> pokazWszystkie(){
         List<klienci> listaKlienci = new ArrayList<klienci>();
         for(klienci projekt : klienciRepo.findAll()){

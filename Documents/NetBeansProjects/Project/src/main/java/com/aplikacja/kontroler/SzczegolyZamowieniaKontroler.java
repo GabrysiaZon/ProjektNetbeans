@@ -17,8 +17,8 @@ public class SzczegolyZamowieniaKontroler {
     @Autowired
     szczegolyZamowieniaRepozytorium szczegolyZamowieniaRepo;
 
-    @GetMapping("/dodajDaneTestowe")
-    public String dodajDaneTestowe(){
+    @GetMapping("/dodajTestowe")
+    public String dodajTestowe(){
 
         szczegolyZamowieniaRepo.saveAll (Arrays. asList(
                 new szczegolyZamowienia(1, 1, 2),
@@ -28,7 +28,7 @@ public class SzczegolyZamowieniaKontroler {
         return "Testowe rekordy dodane!";
     }
     
-    @GetMapping("/pokazWszystkie")
+    @GetMapping()
     public List<szczegolyZamowienia> pokarzWszystkie(){
         List<szczegolyZamowienia> listaszczegolyZamowienia = new ArrayList<szczegolyZamowienia>();
         for(szczegolyZamowienia projekt : szczegolyZamowieniaRepo.findAll()){
