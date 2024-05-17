@@ -18,11 +18,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("produkty")
 public class ProduktyKontroler {
+    
     @Autowired
     produktyRepozytorium produktyRepo;
 
-    @GetMapping("/dodajTestowe")
-    public String dodajDaneTestoweProdukty (){
+    @GetMapping("/dodajDaneTestowe")
+    public String dodajDaneTestowe(){
 
         produktyRepo.saveAll (Arrays.asList(
                 new produkty("Stoly", "Stol jadalniany", "Bialy", 399.99),
@@ -33,7 +34,7 @@ public class ProduktyKontroler {
     }
 
     @GetMapping("/pokazWszystkie")
-    public List<produkty> pokarzWszystkieProdukty(){
+    public List<produkty> pokarzWszystkie(){
         List<produkty> listaProdukty = new ArrayList<produkty>();
         for(produkty projekt : produktyRepo.findAll()){
             listaProdukty.add(projekt) ;
@@ -42,13 +43,13 @@ public class ProduktyKontroler {
     }
 
     @GetMapping("/wyszukajPoId/{id}")
-    public String szukajPoIdProdukty(@PathVariable("id") Integer id) {
+    public String szukajPoId(@PathVariable("id") Integer id) {
         String result = produktyRepo.findById (id) .toString();
         return result;
     }
 
     @GetMapping("/szukajPoNazwie/{nazwa}")
-    public String fetchDataByNazwaProdukty (@PathVariable("nazwa") String nazwa) {
+    public String szukajPoNazwie(@PathVariable("nazwa") String nazwa) {
         for (produkty projekt: produktyRepo.findByNazwa (nazwa) ) {
             return projekt.toString ();
         }
@@ -56,13 +57,13 @@ public class ProduktyKontroler {
     }
 
     @DeleteMapping("/{id}")
-    public String usunPoIdProdukty(@PathVariable("id") Integer id) {
+    public String usunPoId(@PathVariable("id") Integer id) {
         produktyRepo.deleteById (id);
         return "Rekord usunięty";
     }
 
     @PostMapping("/utworz")
-    public produkty utworzProdukty (@RequestBody Map<String, String> body) {
+    public produkty utworz(@RequestBody Map<String, String> body) {
         String kategoria = body.get("kategoria");
         String nazwa = body.get("nazwa");
         String kolor = body.get("kolor");
@@ -71,7 +72,7 @@ public class ProduktyKontroler {
     }
 
     @PutMapping ("/zmien")
-    public produkty zmienProdukty (@RequestBody Map<String, String> body) {
+    public produkty zmien(@RequestBody Map<String, String> body) {
         int produktId = Integer.parseInt(body.get("produktId"));
         String kategoria = body.get("kategoria");
         String nazwa = body.get("nazwa");

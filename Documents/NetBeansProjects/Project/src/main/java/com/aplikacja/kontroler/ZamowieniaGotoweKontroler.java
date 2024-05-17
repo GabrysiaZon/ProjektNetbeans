@@ -18,8 +18,8 @@ public class ZamowieniaGotoweKontroler {
     @Autowired
     zamowieniaGotoweRepozytorium zamowieniaGotoweRepo;
 
-    @GetMapping("/dodajTestowe")
-    public String dodajDaneTestoweZamowieniaGotowe (){
+    @GetMapping("/dodajDaneTestowe")
+    public String dodajDaneTestowe(){
 
         zamowieniaGotoweRepo.saveAll (Arrays. asList(
                 new zamowieniaGotowe(1, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 20), 600.0),
@@ -28,41 +28,48 @@ public class ZamowieniaGotoweKontroler {
 
         return "Testowe rekordy dodane!";
     }
+    
     @GetMapping("/pokazWszystkie")
-    public List<zamowieniaGotowe> pokarzWszystkieZamowieniaGotowe(){
-        List<zamowieniaGotowe> listazamowieniaGotowe = new ArrayList<zamowieniaGotowe>();
+    public List<zamowieniaGotowe> pokarzWszystkie(){
+        List<zamowieniaGotowe> listaZamowieniaGotowe = new ArrayList<zamowieniaGotowe>();
         for(zamowieniaGotowe projekt : zamowieniaGotoweRepo.findAll()){
-            listazamowieniaGotowe.add(projekt) ;
+            listaZamowieniaGotowe.add(projekt) ;
         }
-        return listazamowieniaGotowe;
+        return listaZamowieniaGotowe;
     }
+    
     @GetMapping("/wyszukajPoId/{id}")
-    public String szukajPoIdZamowieniaGotowe(@PathVariable("id") Integer id) {
+    public String szukajPoId(@PathVariable("id") Integer id) {
         String result = zamowieniaGotoweRepo.findById (id) .toString();
         return result;
     }
-    @GetMapping("/szukajPoNazwie/{idKlienta}")
-    public String fetchDataByNazwaZamowieniaGotowe (@PathVariable("idKlienta") int idKlienta) {
+
+    @GetMapping("/szukajPoIdKlienta/{idKlienta}")
+    public List<zamowieniaGotowe> szukajPoIdKlienta(@PathVariable("idKlienta") int idKlienta){
+        List<zamowieniaGotowe> listaZamowieniaGotowe = new ArrayList<zamowieniaGotowe>();
         for (zamowieniaGotowe projekt: zamowieniaGotoweRepo.findByIdKlient (idKlienta) ) {
-            return projekt.toString ();
+            listaZamowieniaGotowe.add(projekt);
         }
-        return null;
+        return listaZamowieniaGotowe;
     }
+            
     @DeleteMapping("/{id}")
-    public String usunPoIdZamowieniaGotowe(@PathVariable("id") Integer id) {
+    public String usunPoId(@PathVariable("id") Integer id) {
         zamowieniaGotoweRepo.deleteById (id);
         return "Rekord usunięty";
     }
+    
     @PostMapping("/utworz")
-    public zamowieniaGotowe utworzZamowieniaGotowe (@RequestBody Map<String, String> body) {
+    public zamowieniaGotowe utworz(@RequestBody Map<String, String> body) {
         int idKlient = Integer.parseInt(body.get("idKlient"));
         LocalDate dataZakupu = LocalDate.parse(body.get("dataZakupu"));
         LocalDate dataRealizacji = LocalDate.parse(body.get("dataRealizacji"));
         Double cena = Double.parseDouble(body.get("cena"));
         return zamowieniaGotoweRepo.save(new zamowieniaGotowe (idKlient, dataZakupu, dataRealizacji, cena));
     }
+    
     @PutMapping ("/zmien")
-    public zamowieniaGotowe zmienZamowieniaGotowe (@RequestBody Map<String, String> body) {
+    public zamowieniaGotowe zmien(@RequestBody Map<String, String> body) {
         int zamowieniaGotoweId = Integer.parseInt(body.get("zamowieniaGotoweId"));
         int idKlient = Integer.parseInt(body.get("idKlient"));
         LocalDate dataZakupu = LocalDate.parse(body.get("dataZakupu"));
