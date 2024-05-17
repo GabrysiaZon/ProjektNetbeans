@@ -43,7 +43,7 @@ public class KlienciKontroler {
         return listaKlienci;
     }
 
-    @GetMapping("/wyszukajPoId/{id}")
+    @GetMapping("/szukajPoId/{id}")
     public String szukajPoId(@PathVariable("id") Integer id) {
         String result = klienciRepo.findById (id) .toString();
         return result;
@@ -57,7 +57,7 @@ public class KlienciKontroler {
         return null;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("usun/{id}")
     public String usunPoId(@PathVariable("id") Integer id) {
         klienciRepo.deleteById (id);
         return "Rekord usunięty";
@@ -79,7 +79,7 @@ public class KlienciKontroler {
 
     @PutMapping ("/zmien")
     public klienci zmien(@RequestBody Map<String, String> body) {
-        int klientId = Integer.parseInt(body.get("klientId"));
+        int klientId = Integer.parseInt(body.get("id"));
         String imie = body.get("imie");
         String nazwisko = body.get("nazwisko");
         String plec = body.get("plec");

@@ -38,7 +38,7 @@ public class ZamowieniaGotoweKontroler {
         return listaZamowieniaGotowe;
     }
     
-    @GetMapping("/wyszukajPoId/{id}")
+    @GetMapping("/szukajPoId/{id}")
     public String szukajPoId(@PathVariable("id") Integer id) {
         String result = zamowieniaGotoweRepo.findById (id) .toString();
         return result;
@@ -53,7 +53,7 @@ public class ZamowieniaGotoweKontroler {
         return listaZamowieniaGotowe;
     }
             
-    @DeleteMapping("/{id}")
+    @DeleteMapping("usun/{id}")
     public String usunPoId(@PathVariable("id") Integer id) {
         zamowieniaGotoweRepo.deleteById (id);
         return "Rekord usunięty";
@@ -70,7 +70,7 @@ public class ZamowieniaGotoweKontroler {
     
     @PutMapping ("/zmien")
     public zamowieniaGotowe zmien(@RequestBody Map<String, String> body) {
-        int zamowieniaGotoweId = Integer.parseInt(body.get("zamowieniaGotoweId"));
+        int zamowieniaGotoweId = Integer.parseInt(body.get("id"));
         int idKlient = Integer.parseInt(body.get("idKlient"));
         LocalDate dataZakupu = LocalDate.parse(body.get("dataZakupu"));
         LocalDate dataRealizacji = LocalDate.parse(body.get("dataRealizacji"));

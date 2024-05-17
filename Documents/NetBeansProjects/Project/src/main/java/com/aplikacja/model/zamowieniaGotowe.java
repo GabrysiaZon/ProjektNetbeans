@@ -82,10 +82,10 @@ public class zamowieniaGotowe   implements Serializable {
     public String toString () {
         return "Produkt (" +
             "id=" + id +
-            ", idKlient='" + idKlient + '\"' +
-            ", dataZakupu='" + dataZakupu + '\"' +
-            ", dataRealizacji='" + dataRealizacji + '\"' +
-            ", cena='" + cena + '\"' +
+            ", idKlient='" + idKlient + '\'' +
+            ", dataZakupu='" + dataZakupu + '\'' +
+            ", dataRealizacji='" + dataRealizacji + '\'' +
+            ", cena='" + cena + '\'' +
             ')';
     }
 }

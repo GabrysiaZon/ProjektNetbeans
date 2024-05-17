@@ -70,9 +70,9 @@ public class projektanci implements Serializable {
     public String toString () {
         return "Produkt (" +
             "id=" + id +
-            ", imie='" + imie + '\"' +
-            ", nazwisko='" + nazwisko + '\"' +
-            ", email='" + email + '\"' +
+            ", imie='" + imie + '\'' +
+            ", nazwisko='" + nazwisko + '\'' +
+            ", email='" + email + '\'' +
             ')';
     }
 }

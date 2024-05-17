@@ -37,7 +37,7 @@ public class ZamowieniaWymiarKontroler {
         return listazamowieniaWymiar;
     }
     
-    @GetMapping("/wyszukajPoId/{id}")
+    @GetMapping("/szukajPoId/{id}")
     public String szukajPoId(@PathVariable("id") Integer id) {
         String result = zamowieniaWymiarRepo.findById (id) .toString();
         return result;
@@ -52,7 +52,7 @@ public class ZamowieniaWymiarKontroler {
         return listaZamowieniaWymiar;
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("usun/{id}")
     public String usunPoId(@PathVariable("id") Integer id) {
         zamowieniaWymiarRepo.deleteById (id);
         return "Rekord usunięty";
@@ -70,7 +70,7 @@ public class ZamowieniaWymiarKontroler {
     
     @PutMapping ("/zmien")
     public zamowieniaWymiar zmien(@RequestBody Map<String, String> body) {
-        int zamowieniaWymiarId = Integer.parseInt(body.get("zamowieniaWymiarId"));
+        int zamowieniaWymiarId = Integer.parseInt(body.get("id"));
         int idKlient = Integer.parseInt(body.get("idKlient"));
         int idProjektant = Integer.parseInt(body.get("idProjektant"));
         LocalDate dataZakupu = LocalDate.parse(body.get("dataZakupu"));

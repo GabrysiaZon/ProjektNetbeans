@@ -37,7 +37,7 @@ public class SzczegolyZamowieniaKontroler {
         return listaszczegolyZamowienia;
     }
     
-    @GetMapping("/wyszukajPoId/{id}")
+    @GetMapping("/szukajPoId/{id}")
     public String szukajPoId(@PathVariable("id") Integer id) {
         String result = szczegolyZamowieniaRepo.findById (id) .toString();
         return result;
@@ -52,7 +52,7 @@ public class SzczegolyZamowieniaKontroler {
         return listaSzczegolyZamowienia;
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("usun/{id}")
     public String usunPoId(@PathVariable("id") Integer id) {
         szczegolyZamowieniaRepo.deleteById (id);
         return "Rekord usunięty";
@@ -68,7 +68,7 @@ public class SzczegolyZamowieniaKontroler {
     
     @PutMapping ("/zmien")
     public szczegolyZamowienia zmien(@RequestBody Map<String, String> body) {
-        int szczegolyZamowieniaId = Integer.parseInt(body.get("szczegolyZamowieniaId"));
+        int szczegolyZamowieniaId = Integer.parseInt(body.get("id"));
         int idZamowienie = Integer.parseInt(body.get("idZamowienie"));
         int idProdukt = Integer.parseInt(body.get("idProdukt"));
         int ilosc = Integer.parseInt(body.get("ilosc"));

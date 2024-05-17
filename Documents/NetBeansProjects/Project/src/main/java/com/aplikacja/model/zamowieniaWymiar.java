@@ -93,11 +93,11 @@ public class zamowieniaWymiar  implements Serializable {
     public String toString () {
         return "Produkt (" +
             "id=" + id +
-            ", idKlient='" + idKlient + '\"' +
-            ", idProjektant='" + idProjektant + '\"' +
-            ", dataZakupu='" + dataZakupu + '\"' +
-            ", dataRealizacji='" + dataRealizacji + '\"' +
-            ", cena='" + cena + '\"' +
+            ", idKlient='" + idKlient + '\'' +
+            ", idProjektant='" + idProjektant + '\'' +
+            ", dataZakupu='" + dataZakupu + '\'' +
+            ", dataRealizacji='" + dataRealizacji + '\'' +
+            ", cena='" + cena + '\'' +
             ')';
     }
 }

@@ -42,7 +42,7 @@ public class ProduktyKontroler {
         return listaProdukty;
     }
 
-    @GetMapping("/wyszukajPoId/{id}")
+    @GetMapping("/szukajPoId/{id}")
     public String szukajPoId(@PathVariable("id") Integer id) {
         String result = produktyRepo.findById (id) .toString();
         return result;
@@ -56,7 +56,7 @@ public class ProduktyKontroler {
         return null;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("usun/{id}")
     public String usunPoId(@PathVariable("id") Integer id) {
         produktyRepo.deleteById (id);
         return "Rekord usunięty";
@@ -73,7 +73,7 @@ public class ProduktyKontroler {
 
     @PutMapping ("/zmien")
     public produkty zmien(@RequestBody Map<String, String> body) {
-        int produktId = Integer.parseInt(body.get("produktId"));
+        int produktId = Integer.parseInt(body.get("id"));
         String kategoria = body.get("kategoria");
         String nazwa = body.get("nazwa");
         String kolor = body.get("kolor");

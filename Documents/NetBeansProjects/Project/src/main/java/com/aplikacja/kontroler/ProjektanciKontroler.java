@@ -41,7 +41,7 @@ public class ProjektanciKontroler {
         return listaprojektanci;
     }
     
-    @GetMapping("/wyszukajPoId/{id}")
+    @GetMapping("/szukajPoId/{id}")
     public String szukajPoId(@PathVariable("id") Integer id) {
         String result = projektanciRepo.findById (id) .toString();
         return result;
@@ -55,7 +55,7 @@ public class ProjektanciKontroler {
         return null;
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("usun/{id}")
     public String usunPoId(@PathVariable("id") Integer id) {
         projektanciRepo.deleteById (id);
         return "Rekord usunięty";
@@ -71,7 +71,7 @@ public class ProjektanciKontroler {
     
     @PutMapping ("/zmien")
     public projektanci zmien(@RequestBody Map<String, String> body) {
-        int projektanciId = Integer.parseInt(body.get("projektanciId"));
+        int projektanciId = Integer.parseInt(body.get("id"));
         String imie = body.get("imie");
         String nazwisko = body.get("nazwisko");
         String email = body.get("email");
