@@ -29,7 +29,7 @@ public class SzczegolyZamowieniaKontroler {
     }
     
     @GetMapping()
-    public List<szczegolyZamowienia> pokarzWszystkie(){
+    public List<szczegolyZamowienia> pokazWszystkie(){
         List<szczegolyZamowienia> listaszczegolyZamowienia = new ArrayList<szczegolyZamowienia>();
         for(szczegolyZamowienia projekt : szczegolyZamowieniaRepo.findAll()){
             listaszczegolyZamowienia.add(projekt) ;

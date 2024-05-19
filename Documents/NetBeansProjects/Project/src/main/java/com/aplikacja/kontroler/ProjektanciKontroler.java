@@ -33,7 +33,7 @@ public class ProjektanciKontroler {
     }
     
     @GetMapping()
-    public List<projektanci> pokarzWszystkie(){
+    public List<projektanci> pokazWszystkie(){
         List<projektanci> listaprojektanci = new ArrayList<projektanci>();
         for(projektanci projekt : projektanciRepo.findAll()){
             listaprojektanci.add(projekt) ;

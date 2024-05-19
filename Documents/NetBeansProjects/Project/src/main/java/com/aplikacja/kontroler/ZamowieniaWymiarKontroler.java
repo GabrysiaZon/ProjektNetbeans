@@ -29,7 +29,7 @@ public class ZamowieniaWymiarKontroler {
     }
     
     @GetMapping()
-    public List<zamowieniaWymiar> pokarzWszystkie(){
+    public List<zamowieniaWymiar> pokazWszystkie(){
         List<zamowieniaWymiar> listazamowieniaWymiar = new ArrayList<zamowieniaWymiar>();
         for(zamowieniaWymiar projekt : zamowieniaWymiarRepo.findAll()){
             listazamowieniaWymiar.add(projekt) ;

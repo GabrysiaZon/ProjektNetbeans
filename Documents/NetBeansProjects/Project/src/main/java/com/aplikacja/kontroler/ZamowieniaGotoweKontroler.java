@@ -30,7 +30,7 @@ public class ZamowieniaGotoweKontroler {
     }
     
     @GetMapping()
-    public List<zamowieniaGotowe> pokarzWszystkie(){
+    public List<zamowieniaGotowe> pokazWszystkie(){
         List<zamowieniaGotowe> listaZamowieniaGotowe = new ArrayList<zamowieniaGotowe>();
         for(zamowieniaGotowe projekt : zamowieniaGotoweRepo.findAll()){
             listaZamowieniaGotowe.add(projekt) ;

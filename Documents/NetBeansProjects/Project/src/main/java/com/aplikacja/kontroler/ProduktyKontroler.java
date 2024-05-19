@@ -34,7 +34,7 @@ public class ProduktyKontroler {
     }
 
     @GetMapping()
-    public List<produkty> pokarzWszystkie(){
+    public List<produkty> pokazWszystkie(){
         List<produkty> listaProdukty = new ArrayList<produkty>();
         for(produkty projekt : produktyRepo.findAll()){
             listaProdukty.add(projekt) ;
