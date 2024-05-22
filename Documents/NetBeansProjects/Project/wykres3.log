@@ -1,0 +1,170 @@
+1                                          System SAS              18:51 Wednesday, May 22, 2024
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M7) 
+      Licensed to UE KATOWICE_WINDOWS 64BIT, Site 70099443.
+NOTE: This session is executing on the X64_10HOME  platform.
+
+
+
+NOTE: Analytical products:
+      
+      SAS/STAT 15.2
+      SAS/ETS 15.2
+      SAS/OR 15.2
+      SAS/IML 15.2
+      SAS/QC 15.2
+
+NOTE: Additional host information:
+
+ X64_10HOME WIN 10.0.22621  Workstation
+
+NOTE: SAS initialization used:
+      real time           0.23 seconds
+      cpu time            0.01 seconds
+      
+1          filename resp1 temp;
+2          proc http
+3              url='http://localhost:8080/zamowieniaWymiar'
+4              method="get"
+5              out=resp1;
+6          run;
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP zajê³a (ca³kowity czas przetwarzania):
+      real time           0.16 seconds
+      cpu time            0.00 seconds
+      
+
+7          
+8          libname rss1 json fileref=resp1;
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref RSS1 was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: C:\Users\anial\AppData\Local\Temp\SAS Temporary 
+      Files\_TD24776_DESKTOP-U9QUN01_\#LN00006
+9          libname stud BASE "C:\Users\anial\Documents\Semestr 4\Integracja danych w sys.
+9        ! analitycznych";
+NOTE: Libref STUD was successfully assigned as follows: 
+      Engine:        BASE 
+      Physical Name: C:\Users\anial\Documents\Semestr 4\Integracja danych w sys. analitycznych
+10         
+11         data stud.zamowieniaWymiar;
+12             set rss1.root;
+13         run;
+
+NOTE: There were 3 observations read from the data set RSS1.ROOT.
+NOTE: The data set STUD.ZAMOWIENIAWYMIAR has 3 observations and 7 variables.
+NOTE: Instrukcja DATA zajê³a (ca³kowity czas przetwarzania):
+      real time           0.00 seconds
+2                                          System SAS              18:51 Wednesday, May 22, 2024
+
+      cpu time            0.00 seconds
+      
+
+14         
+15         filename resp2 temp;
+16         proc http
+17             url='http://localhost:8080/projektanci'
+18             method="get"
+19             out=resp2;
+20         run;
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP zajê³a (ca³kowity czas przetwarzania):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+21         
+22         libname rss2 json fileref=resp2;
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref RSS2 was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: C:\Users\anial\AppData\Local\Temp\SAS Temporary 
+      Files\_TD24776_DESKTOP-U9QUN01_\#LN00073
+23         
+24         data stud.projektanci;
+25             set rss2.root;
+26         run;
+
+NOTE: There were 3 observations read from the data set RSS2.ROOT.
+NOTE: The data set STUD.PROJEKTANCI has 3 observations and 5 variables.
+NOTE: Instrukcja DATA zajê³a (ca³kowity czas przetwarzania):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+27         
+28         ods _all_ close;
+29         ods listing gpath="C:\Users\anial\Documents\Semestr 4\Integracja danych w sys.
+29       ! analitycznych\ProjektNetbeans3\Documents\NetBeansProjects\Project\src\main\resources"
+29       ! ;
+30         ods graphics on / reset=imagefmt=png imagename="wykres2";
+                                   ________
+                                   22
+                                   76
+ERROR 22-322: B³¹d sk³adni, oczekiwano jednego z nastêpuj¹cych: ALL, ANTIALIAS, ANTIALIASMAX, 
+              ATTRPRIORITY, BORDER, BYLINE, DATASKINMAX, DISCRETEMAX, DRILLTARGET, GROUPMAX, 
+              HEIGHT, IMAGEMAP, IMAGENAME, INDEX, LABELMAX, LABELPLACEMENT, LEGENDAREAMAX, 
+              LINEPATTERNOBSMAX, LOESSMAXOBS, LOESSOBSMAX, MAXLEGENDAREA, MAXOBS, NBINSMAX, 
+              NXYBINSMAX, OBSMAX, OUTPUTFMT, PANELCELLMAX, SCALE, SCALEMARKERS, STACKDEPTHMAX, 
+              SUBPIXEL, TIPMAX, TOTALCELLMAX, WIDTH.  
+
+ERROR 76-322: Syntax error, statement will be ignored.
+
+31         
+32         proc sql;
+33             create table stud.combined_data as
+3                                          System SAS              18:51 Wednesday, May 22, 2024
+
+34             select a.idProjektant, b.imie, b.nazwisko
+35             from stud.zamowieniaWymiar as a
+36             left join stud.projektanci as b
+37             on a.idProjektant = b.id;
+NOTE: Table STUD.COMBINED_DATA created, with 3 rows and 3 columns.
+
+38         quit;
+NOTE: PROCEDURE SQL zajê³a (ca³kowity czas przetwarzania):
+      real time           0.10 seconds
+      cpu time            0.00 seconds
+      
+
+39         
+40         data final;
+41             set stud.combined_data;
+42             Projektant = catx(' ', imie, nazwisko);
+43         run;
+
+NOTE: There were 3 observations read from the data set STUD.COMBINED_DATA.
+NOTE: The data set WORK.FINAL has 3 observations and 4 variables.
+NOTE: Instrukcja DATA zajê³a (ca³kowity czas przetwarzania):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+44         
+45         proc gchart data=final;
+46             pie Projektant / type=freq
+47                             discrete
+48                             value=inside
+49                             percent=inside
+50                             slice=outside;
+51         run;
+
+52         
+53         ods graphics off;
+54         ods listing;
+NOTE: There were 3 observations read from the data set WORK.FINAL.
+NOTE: PROCEDURE GCHART zajê³a (ca³kowity czas przetwarzania):
+      real time           1:06.16
+      cpu time            0.07 seconds
+      
+
+ERROR: Errors printed on page 2.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           1:06.82
+      cpu time            0.12 seconds
+      

@@ -25,19 +25,19 @@ public class SasKontroler {
 ResourceLoader resourceLoader;
 
 //Wywołanie usługi zwracającej wykres
-   @RequestMapping(value = "/wykres", method = RequestMethod.GET,produces = MediaType.IMAGE_PNG_VALUE)
+   @RequestMapping(value = "/wykres1", method = RequestMethod.GET,produces = MediaType.IMAGE_PNG_VALUE)
     public void getImage(HttpServletResponse response) throws IOException, InterruptedException { 
         
      //Ustawienie ścieżek dostępwych:
     
       //Folder resources
-      String lokalizacja_resources = System.getProperty("user.dir")+"\\src\\main\\resources\\";
+      String lokalizacja_resources = "C:\\Users\\anial\\Documents\\Semestr 4\\Integracja danych w sys. analitycznych\\ProjektNetbeans3\\Documents\\NetBeansProjects\\Project\\src\\main\\resources\\";
       
       //Dostęp do sas.exe
-      String lokalizacja_sas = "C:\\Program Files\\SASHome\\SASFoundation\\9.4\\sas.exe";
+      String lokalizacja_sas = "D:\\SASHome\\SASFoundation\\9.4\\sas.exe";
      
       //Kod wywołujący plik wykres.sas
-      String kod_cmd = "\""+lokalizacja_sas+"\" "+"\""+lokalizacja_resources+"wykres.sas"+"\"";
+      String kod_cmd = "\""+lokalizacja_sas+"\" "+"\""+lokalizacja_resources+"wykres1.sas"+"\"";
     
       //W logu zobaczymy pełną ścieżkę wywolującą kod wykres.sas
       System.out.println(kod_cmd);
@@ -47,11 +47,65 @@ ResourceLoader resourceLoader;
       Thread.sleep(2000);
       
     //Wywołanie nowego pliku wykres.png z folderu oraz przekazanie go jako wynik działania usługi 
-    final Resource resource = resourceLoader.getResource("classpath:wykres.png");
+    final Resource resource = resourceLoader.getResource("classpath:wykres1.png");
     response.setContentType(MediaType.IMAGE_PNG_VALUE);
     StreamUtils.copy(resource.getInputStream(), response.getOutputStream());
     }
     
+    @RequestMapping(value = "/wykres2", method = RequestMethod.GET,produces = MediaType.IMAGE_PNG_VALUE)
+    public void getImage2(HttpServletResponse response) throws IOException, InterruptedException { 
+        
+     //Ustawienie ścieżek dostępwych:
+    
+      //Folder resources
+      String lokalizacja_resources = "C:\\Users\\anial\\Documents\\Semestr 4\\Integracja danych w sys. analitycznych\\ProjektNetbeans3\\Documents\\NetBeansProjects\\Project\\src\\main\\resources\\";
+      
+      //Dostęp do sas.exe
+      String lokalizacja_sas = "D:\\SASHome\\SASFoundation\\9.4\\sas.exe";
+     
+      //Kod wywołujący plik wykres.sas
+      String kod_cmd = "\""+lokalizacja_sas+"\" "+"\""+lokalizacja_resources+"wykres2.sas"+"\"";
+    
+      //W logu zobaczymy pełną ścieżkę wywolującą kod wykres.sas
+      System.out.println(kod_cmd);
+      
+      //Wywołanie kodu w systemie Windows
+      Runtime.getRuntime().exec(kod_cmd); 
+      Thread.sleep(2000);
+      
+    //Wywołanie nowego pliku wykres.png z folderu oraz przekazanie go jako wynik działania usługi 
+    final Resource resource = resourceLoader.getResource("classpath:wykres2.png");
+    response.setContentType(MediaType.IMAGE_PNG_VALUE);
+    StreamUtils.copy(resource.getInputStream(), response.getOutputStream());
+    }
+    
+    @RequestMapping(value = "/wykres3", method = RequestMethod.GET,produces = MediaType.IMAGE_PNG_VALUE)
+    public void getImage3(HttpServletResponse response) throws IOException, InterruptedException { 
+        
+     //Ustawienie ścieżek dostępwych:
+    
+      //Folder resources
+      String lokalizacja_resources = "C:\\Users\\anial\\Documents\\Semestr 4\\Integracja danych w sys. analitycznych\\ProjektNetbeans3\\Documents\\NetBeansProjects\\Project\\src\\main\\resources\\";
+      
+      //Dostęp do sas.exe
+      String lokalizacja_sas = "D:\\SASHome\\SASFoundation\\9.4\\sas.exe";
+     
+      //Kod wywołujący plik wykres.sas
+      String kod_cmd = "\""+lokalizacja_sas+"\" "+"\""+lokalizacja_resources+"wykres3.sas"+"\"";
+    
+      //W logu zobaczymy pełną ścieżkę wywolującą kod wykres.sas
+      System.out.println(kod_cmd);
+      
+      //Wywołanie kodu w systemie Windows
+      Runtime.getRuntime().exec(kod_cmd); 
+      Thread.sleep(2000);
+      
+    //Wywołanie nowego pliku wykres.png z folderu oraz przekazanie go jako wynik działania usługi 
+    final Resource resource = resourceLoader.getResource("classpath:wykres3.png");
+    response.setContentType(MediaType.IMAGE_PNG_VALUE);
+    StreamUtils.copy(resource.getInputStream(), response.getOutputStream());
+    }
+//    
 //    
 //    @RequestMapping(value = "/wykres2", method = RequestMethod.GET,produces = MediaType.IMAGE_PNG_VALUE)
 ////    public void getImage2(HttpServletResponse response,@RequestParam String tabela, @RequestParam String x, @RequestParam String y) throws IOException { 

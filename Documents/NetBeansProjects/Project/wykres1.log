@@ -1,0 +1,89 @@
+1                                          System SAS              18:29 Wednesday, May 22, 2024
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M7) 
+      Licensed to UE KATOWICE_WINDOWS 64BIT, Site 70099443.
+NOTE: This session is executing on the X64_10HOME  platform.
+
+
+
+NOTE: Analytical products:
+      
+      SAS/STAT 15.2
+      SAS/ETS 15.2
+      SAS/OR 15.2
+      SAS/IML 15.2
+      SAS/QC 15.2
+
+NOTE: Additional host information:
+
+ X64_10HOME WIN 10.0.22621  Workstation
+
+NOTE: SAS initialization used:
+      real time           0.22 seconds
+      cpu time            0.06 seconds
+      
+1          filename resp temp;
+2          proc http
+3          url='http://localhost:8080/klienci'
+4          method="get"
+5          out=resp;
+6          run;
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP zajê³a (ca³kowity czas przetwarzania):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+7          libname rss json fileref=resp;
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref RSS was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: C:\Users\anial\AppData\Local\Temp\SAS Temporary 
+      Files\_TD25064_DESKTOP-U9QUN01_\#LN00006
+8          LIBNAME stud BASE "C:\Users\anial\Documents\Semestr 4\Integracja danych w sys.
+8        ! analitycznych";
+NOTE: Libref STUD was successfully assigned as follows: 
+      Engine:        BASE 
+      Physical Name: C:\Users\anial\Documents\Semestr 4\Integracja danych w sys. analitycznych
+9          data Stud.klienci;
+10         set rss.root;
+11         run;
+
+NOTE: There were 3 observations read from the data set RSS.ROOT.
+NOTE: The data set STUD.KLIENCI has 3 observations and 11 variables.
+NOTE: Instrukcja DATA zajê³a (ca³kowity czas przetwarzania):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+2                                          System SAS              18:29 Wednesday, May 22, 2024
+
+
+12         
+13         
+14         ods _all_ close;
+15         ods listing gpath = ".\src\main\resources";
+16         ods graphics on /reset imagefmt = png reset imagename = "wykres1";
+17         
+18         
+19         PROC GCHART DATA=stud.klienci;
+20         VBAR plec / type=freq
+21         maxis=axisl raxis=axis2;
+22         RUN;
+
+WARNING: AXIS statement 2 not found. The default axis description will be used.
+23         
+24         ods graphics off;
+25         ods listing ;
+NOTE: There were 3 observations read from the data set STUD.KLIENCI.
+NOTE: PROCEDURE GCHART zajê³a (ca³kowity czas przetwarzania):
+      real time           1.68 seconds
+      cpu time            0.03 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           2.01 seconds
+      cpu time            0.10 seconds
+      
