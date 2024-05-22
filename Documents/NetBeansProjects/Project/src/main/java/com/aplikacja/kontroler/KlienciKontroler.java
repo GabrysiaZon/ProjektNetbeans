@@ -19,11 +19,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("klienci")
 public class KlienciKontroler {
+    
     @Autowired
     klienciRepozytorium klienciRepo;
 
     @GetMapping("/dodajTestowe")
-    public String dodajDaneTestoweKlienci(){
+    public String dodajTestowe(){
 
         klienciRepo.saveAll(Arrays.asList(
                 new klienci("Jan", "Kowalski", "M", LocalDate.of(1990, 5,15), "jan.kowalski@example.com", "Warszawa", "Aleje Jerozolimskie", "10", "5A"),
@@ -33,8 +34,8 @@ public class KlienciKontroler {
         return "Testowe rekordy dodane!";
     }
 
-    @GetMapping("/pokazWszystkie")
-    public List<klienci> pokarzWszystkieKlienci(){
+    @GetMapping()
+    public List<klienci> pokazWszystkie(){
         List<klienci> listaKlienci = new ArrayList<klienci>();
         for(klienci projekt : klienciRepo.findAll()){
             listaKlienci.add(projekt) ;
@@ -42,28 +43,28 @@ public class KlienciKontroler {
         return listaKlienci;
     }
 
-    @GetMapping("/wyszukajPoId/{id}")
-    public String szukajPoIdKlienci(@PathVariable("id") Integer id) {
+    @GetMapping("/szukajPoId/{id}")
+    public String szukajPoId(@PathVariable("id") Integer id) {
         String result = klienciRepo.findById (id) .toString();
         return result;
     }
 
-    @GetMapping("/szukajPoNazwie/{email}")
-    public String fetchDataByNazwaKlienci(@PathVariable("email") String email) {
+    @GetMapping("/szukajPoEmail/{email}")
+    public String szukajPoEmail(@PathVariable("email") String email) {
         for (klienci projekt: klienciRepo.findByEmail (email) ) {
             return projekt.toString ();
         }
         return null;
     }
 
-    @DeleteMapping("/{id}")
-    public String usunPoIdKlienci(@PathVariable("id") Integer id) {
+    @DeleteMapping("usun/{id}")
+    public String usunPoId(@PathVariable("id") Integer id) {
         klienciRepo.deleteById (id);
         return "Rekord usunięty";
     }
 
     @PostMapping("/utworz")
-    public klienci utworzKlienci(@RequestBody Map<String, String> body) {
+    public klienci utworz(@RequestBody Map<String, String> body) {
         String imie = body.get("imie");
         String nazwisko = body.get("nazwisko");
         String plec = body.get("plec");
@@ -77,8 +78,8 @@ public class KlienciKontroler {
     }
 
     @PutMapping ("/zmien")
-    public klienci zmienKlienci(@RequestBody Map<String, String> body) {
-        int klientId = Integer.parseInt(body.get("klientId"));
+    public klienci zmien(@RequestBody Map<String, String> body) {
+        int klientId = Integer.parseInt(body.get("id"));
         String imie = body.get("imie");
         String nazwisko = body.get("nazwisko");
         String plec = body.get("plec");

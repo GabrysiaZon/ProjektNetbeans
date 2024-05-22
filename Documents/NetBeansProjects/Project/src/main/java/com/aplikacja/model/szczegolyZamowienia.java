@@ -70,10 +70,10 @@ public class szczegolyZamowienia implements Serializable {
     @Override
     public String toString () {
         return "Produkt (" +
-            "id=" + id +
-            ", idZamowienie ='" + idZamowienie + '\"' +
-            ", idProdukt ='" + idProdukt  + '\"' +
-            ", ilosc='" + ilosc + '\"' +
+            "id= " + id +
+            ", idZamowienie ='" + idZamowienie + '\'' +
+            ", idProdukt ='" + idProdukt  + '\'' +
+            ", ilosc='" + ilosc + '\'' +
             ')';
     }
 }

@@ -18,13 +18,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("projektanci")
 public class ProjektanciKontroler {
+    
     @Autowired
     projektanciRepozytorium projektanciRepo;
-    
 
     @GetMapping("/dodajTestowe")
-    public String dodajDaneTestoweProjektanci (){
-
+    public String dodajTestowe (){
         projektanciRepo.saveAll (Arrays. asList(
                 new projektanci("Anna", "Kowalska", "anna.kowalska@example.com"),
                 new projektanci ("Jan", "Nowak", "jan.nowak@example.com"),
@@ -32,41 +31,47 @@ public class ProjektanciKontroler {
 
         return "Testowe rekordy dodane!";
     }
-    @GetMapping("/pokazWszystkie")
-    public List<projektanci> pokarzWszystkieProjektanci(){
+    
+    @GetMapping()
+    public List<projektanci> pokazWszystkie(){
         List<projektanci> listaprojektanci = new ArrayList<projektanci>();
         for(projektanci projekt : projektanciRepo.findAll()){
             listaprojektanci.add(projekt) ;
         }
         return listaprojektanci;
     }
-    @GetMapping("/wyszukajPoId/{id}")
-    public String szukajPoIdProjektanci(@PathVariable("id") Integer id) {
+    
+    @GetMapping("/szukajPoId/{id}")
+    public String szukajPoId(@PathVariable("id") Integer id) {
         String result = projektanciRepo.findById (id) .toString();
         return result;
     }
-    @GetMapping("/szukajPoNazwie/{email}")
-    public String fetchDataByNazwaProjektanci (@PathVariable("email") String email) {
+    
+    @GetMapping("/szukajPoEmail/{email}")
+    public String szukajPoEmail(@PathVariable("email") String email) {
         for (projektanci projekt: projektanciRepo.findByEmail (email) ) {
             return projekt.toString ();
         }
         return null;
     }
-    @DeleteMapping("/{id}")
-    public String usunPoIdProjektanci(@PathVariable("id") Integer id) {
+    
+    @DeleteMapping("usun/{id}")
+    public String usunPoId(@PathVariable("id") Integer id) {
         projektanciRepo.deleteById (id);
         return "Rekord usunięty";
     }
+    
     @PostMapping("/utworz")
-    public projektanci utworzProjektanci (@RequestBody Map<String, String> body) {
+    public projektanci utworz(@RequestBody Map<String, String> body) {
         String imie = body.get("imie");
         String nazwisko = body.get("nazwisko");
         String email = body.get("email");
         return projektanciRepo.save(new projektanci (imie, nazwisko, email) ) ;
     }
+    
     @PutMapping ("/zmien")
-    public projektanci zmienProjektanci (@RequestBody Map<String, String> body) {
-        int projektanciId = Integer.parseInt(body.get("projektanciId"));
+    public projektanci zmien(@RequestBody Map<String, String> body) {
+        int projektanciId = Integer.parseInt(body.get("id"));
         String imie = body.get("imie");
         String nazwisko = body.get("nazwisko");
         String email = body.get("email");

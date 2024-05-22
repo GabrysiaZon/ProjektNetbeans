@@ -1,0 +1,69 @@
+1                                          System SAS              09:19 Wednesday, May 22, 2024
+
+ERROR: Oczekiwano strony 1. Otrzymano stronê -1.
+ERROR: B³¹d walidacji strony podczas odczytu SASUSER.PROFILE.CATALOG.
+NOTE: Unable to open SASUSER.PROFILE. WORK.PROFILE will be opened instead.
+NOTE: All profile changes will be lost at the end of the session.
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M7) 
+      Licensed to UE KATOWICE_WINDOWS 64BIT, Site 70099443.
+NOTE: This session is executing on the X64_10PRO  platform.
+
+
+
+NOTE: Analytical products:
+      
+      SAS/STAT 15.2
+      SAS/ETS 15.2
+      SAS/OR 15.2
+      SAS/IML 15.2
+      SAS/QC 15.2
+
+NOTE: Additional host information:
+
+ X64_10PRO WIN 10.0.22621  Workstation
+
+NOTE: SAS initialization used:
+      real time           0.56 seconds
+      cpu time            0.26 seconds
+      
+1          ods _all_ close;
+2          ods listing gpath = ".\src\main\resources";
+3          ods graphics on /reset imagefmt = png reset imagename = "wykres";
+4          
+5          GOPTIONS reset all hsize=8in vsize=4in;
+ERROR: 'ALL' is not a valid unit or graphics option. It will be ignored.
+6          title 'Wykres liczebnoÅ›ci klientÃ³w wzglÄ™dem pici';
+7          axisl label=('pleÄ‡');
+           _____
+           14
+WARNING 14-169: Assuming the symbol AXIS was misspelled as axisl.
+
+8          axis2 label=(a=90 'IloÅ›Ä‡') ;
+9          
+10         PROC GCHART DATA=stud.klienci;
+ERROR: Libref STUD nie zosta³ przypisany.
+11         VBAR plec / type=freq
+ERROR: No data set open to look up variables.
+12         maxis=axisl raxis=axis2;
+UWAGA: Usuniêto poprzedni¹ instrukcjê.
+13         RUN;
+
+14         
+15         ods graphics off;
+16         ods listing ;
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE GCHART zajê³a (ca³kowity czas przetwarzania):
+      real time           0.01 seconds
+2                                          System SAS              09:19 Wednesday, May 22, 2024
+
+      cpu time            0.00 seconds
+      
+
+ERROR: Errors printed on page 1.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.76 seconds
+      cpu time            0.37 seconds
+      

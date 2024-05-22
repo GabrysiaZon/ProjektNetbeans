@@ -18,10 +18,8 @@ public class ZamowieniaWymiarKontroler {
     @Autowired
     zamowieniaWymiarRepozytorium zamowieniaWymiarRepo;
 
-
     @GetMapping("/dodajTestowe")
-    public String dodajDaneTestoweZamowieniaWymiar(){
-
+    public String dodajTestowe(){
         zamowieniaWymiarRepo.saveAll (Arrays. asList(
                 new zamowieniaWymiar(1, 1, LocalDate.of(2023, 4, 15), LocalDate.of(2023, 5, 12), 1000.0),
                 new zamowieniaWymiar (2, 2, LocalDate.of(2023, 4, 29), LocalDate.of(2023, 5, 30), 1600.0),
@@ -29,33 +27,39 @@ public class ZamowieniaWymiarKontroler {
 
         return "Testowe rekordy dodane!";
     }
-    @GetMapping("/pokazWszystkie")
-    public List<zamowieniaWymiar> pokarzWszystkieZamowieniaWymiar(){
+    
+    @GetMapping()
+    public List<zamowieniaWymiar> pokazWszystkie(){
         List<zamowieniaWymiar> listazamowieniaWymiar = new ArrayList<zamowieniaWymiar>();
         for(zamowieniaWymiar projekt : zamowieniaWymiarRepo.findAll()){
             listazamowieniaWymiar.add(projekt) ;
         }
         return listazamowieniaWymiar;
     }
-    @GetMapping("/wyszukajPoId/{id}")
-    public String szukajPoIdZamowieniaWymiar(@PathVariable("id") Integer id) {
+    
+    @GetMapping("/szukajPoId/{id}")
+    public String szukajPoId(@PathVariable("id") Integer id) {
         String result = zamowieniaWymiarRepo.findById (id) .toString();
         return result;
     }
-    @GetMapping("/szukajPoNazwie/{idKlienta}")
-    public String fetchDataByNazwaZamowieniaWymiar (@PathVariable("idKlienta") int idKlienta) {
+    
+    @GetMapping("/szukajPoIdKlienta/{idKlienta}")
+    public List<zamowieniaWymiar> szukajPoIdKlienta(@PathVariable("idKlienta") int idKlienta) {
+        List<zamowieniaWymiar> listaZamowieniaWymiar = new ArrayList<zamowieniaWymiar>();
         for (zamowieniaWymiar projekt: zamowieniaWymiarRepo.findByIdKlient (idKlienta) ) {
-            return projekt.toString ();
+            listaZamowieniaWymiar.add(projekt);
         }
-        return null;
+        return listaZamowieniaWymiar;
     }
-    @DeleteMapping("/{id}")
-    public String usunPoIdZamowieniaWymiar(@PathVariable("id") Integer id) {
+    
+    @DeleteMapping("usun/{id}")
+    public String usunPoId(@PathVariable("id") Integer id) {
         zamowieniaWymiarRepo.deleteById (id);
         return "Rekord usunięty";
     }
+    
     @PostMapping("/utworz")
-    public zamowieniaWymiar utworzZamowieniaWymiar (@RequestBody Map<String, String> body) {
+    public zamowieniaWymiar utworz(@RequestBody Map<String, String> body) {
         int idKlient = Integer.parseInt(body.get("idKlient"));
         int idProjektant = Integer.parseInt(body.get("idProjektant"));
         LocalDate dataZakupu = LocalDate.parse(body.get("dataZakupu"));
@@ -63,9 +67,10 @@ public class ZamowieniaWymiarKontroler {
         Double cena = Double.parseDouble(body.get("cena"));
         return zamowieniaWymiarRepo.save(new zamowieniaWymiar (idKlient,idProjektant, dataZakupu, dataRealizacji, cena));
     }
+    
     @PutMapping ("/zmien")
-    public zamowieniaWymiar zmienZamowieniaWymiar (@RequestBody Map<String, String> body) {
-        int zamowieniaWymiarId = Integer.parseInt(body.get("zamowieniaWymiarId"));
+    public zamowieniaWymiar zmien(@RequestBody Map<String, String> body) {
+        int zamowieniaWymiarId = Integer.parseInt(body.get("id"));
         int idKlient = Integer.parseInt(body.get("idKlient"));
         int idProjektant = Integer.parseInt(body.get("idProjektant"));
         LocalDate dataZakupu = LocalDate.parse(body.get("dataZakupu"));

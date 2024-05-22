@@ -13,11 +13,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("szczegolyZamowienia")
 public class SzczegolyZamowieniaKontroler {
+    
     @Autowired
     szczegolyZamowieniaRepozytorium szczegolyZamowieniaRepo;
 
     @GetMapping("/dodajTestowe")
-    public String dodajDaneTestoweSzczegolyZamowienia (){
+    public String dodajTestowe(){
 
         szczegolyZamowieniaRepo.saveAll (Arrays. asList(
                 new szczegolyZamowienia(1, 1, 2),
@@ -26,41 +27,48 @@ public class SzczegolyZamowieniaKontroler {
 
         return "Testowe rekordy dodane!";
     }
-    @GetMapping("/pokazWszystkie")
-    public List<szczegolyZamowienia> pokarzWszystkieSzczegolyZamowienia(){
+    
+    @GetMapping()
+    public List<szczegolyZamowienia> pokazWszystkie(){
         List<szczegolyZamowienia> listaszczegolyZamowienia = new ArrayList<szczegolyZamowienia>();
         for(szczegolyZamowienia projekt : szczegolyZamowieniaRepo.findAll()){
             listaszczegolyZamowienia.add(projekt) ;
         }
         return listaszczegolyZamowienia;
     }
-    @GetMapping("/wyszukajPoId/{id}")
-    public String szukajPoIdSzczegolyZamowienia(@PathVariable("id") Integer id) {
+    
+    @GetMapping("/szukajPoId/{id}")
+    public String szukajPoId(@PathVariable("id") Integer id) {
         String result = szczegolyZamowieniaRepo.findById (id) .toString();
         return result;
     }
-        @GetMapping("/szukajPoNazwie/{idZamowienia}")
-    public String fetchDataByNazwaSzczegolyZamowienia (@PathVariable("idZamowienia") int idZamowienia) {
+    
+    @GetMapping("/szukajPoIdZamowienia/{idZamowienia}")
+    public List<szczegolyZamowienia> szukajPoIdZamowienia(@PathVariable("idZamowienia") int idZamowienia) {
+        List<szczegolyZamowienia> listaSzczegolyZamowienia = new ArrayList<szczegolyZamowienia>();
         for (szczegolyZamowienia projekt: szczegolyZamowieniaRepo.findByIdZamowienie (idZamowienia) ) {
-            return projekt.toString ();
+            listaSzczegolyZamowienia.add(projekt);
         }
-        return null;
+        return listaSzczegolyZamowienia;
     }
-    @DeleteMapping("/{id}")
-    public String usunPoIdSzczegolyZamowienia(@PathVariable("id") Integer id) {
+    
+    @DeleteMapping("usun/{id}")
+    public String usunPoId(@PathVariable("id") Integer id) {
         szczegolyZamowieniaRepo.deleteById (id);
         return "Rekord usunięty";
     }
+    
     @PostMapping("/utworz")
-    public szczegolyZamowienia utworzSzczegolyZamowienia (@RequestBody Map<String, String> body) {
+    public szczegolyZamowienia utworz(@RequestBody Map<String, String> body) {
         int idZamowienie = Integer.parseInt(body.get("idZamowienie"));
         int idProdukt = Integer.parseInt(body.get("idProdukt"));
         int ilosc = Integer.parseInt(body.get("ilosc"));
         return szczegolyZamowieniaRepo.save(new szczegolyZamowienia(idZamowienie, idProdukt, ilosc));
     }
+    
     @PutMapping ("/zmien")
-    public szczegolyZamowienia zmienSzczegolyZamowienia (@RequestBody Map<String, String> body) {
-        int szczegolyZamowieniaId = Integer.parseInt(body.get("szczegolyZamowieniaId"));
+    public szczegolyZamowienia zmien(@RequestBody Map<String, String> body) {
+        int szczegolyZamowieniaId = Integer.parseInt(body.get("id"));
         int idZamowienie = Integer.parseInt(body.get("idZamowienie"));
         int idProdukt = Integer.parseInt(body.get("idProdukt"));
         int ilosc = Integer.parseInt(body.get("ilosc"));
